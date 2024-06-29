@@ -3,6 +3,7 @@
 namespace Paydapter\Paydapter\PaymentGateways;
 
 use Paydapter\Paydapter\Interfaces\PaymentGatewayInterface;
+use Paydapter\Paydapter\Interfaces\TransactionStatusInterface;
 use Paydapter\Paydapter\Transactions\Status\CancelledStatus;
 use Paydapter\Paydapter\Transactions\Status\SuccessStatus;
 use Paydapter\Paydapter\Transactions\Transaction;
@@ -13,24 +14,20 @@ class PaypalGateway implements PaymentGatewayInterface{
     public function __construct() {
         
     }
-    
-    public function initialize(array $credentials): void {
-        $this->credentials = $credentials;
-    }
+
     public function createTransaction(float $amount, string $currency, string $description): Transaction {
         return new Transaction($amount, $currency, $description);
     }
-    public function executeTransaction(Transaction $transaction): array {
+    public function executeTransaction(Transaction $transaction): void {
         // Code pour exécuter la transaction via l'API paypal
         $transaction->setStatus(new SuccessStatus());
-        return ['status' => 'success', 'transaction_id' => $transaction->getId()];
+        
     }
-    public function cancelTransaction(Transaction $transaction): bool {
+    public function cancelTransaction(Transaction $transaction): void {
         // Code pour annuler la transaction via l'API paypal
         $transaction->setStatus(new CancelledStatus());
-        return true;
     }
-    public function getTransactionStatus(Transaction $transaction): string {
+    public function getTransactionStatus(Transaction $transaction): TransactionStatusInterface {
         return $transaction->getStatus();
     }
 }
