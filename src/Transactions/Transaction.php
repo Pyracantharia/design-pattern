@@ -3,6 +3,7 @@
 namespace Paydapter\Paydapter\Transactions;
 
 use Paydapter\Paydapter\Interfaces\TransactionStatusInterface;
+use Paydapter\Paydapter\Transactions\Status\PendingStatus;
 
 class Transaction {
     private $id;
@@ -15,14 +16,14 @@ class Transaction {
         $this->amount = $amount;
         $this->currency = $currency;
         $this->description = $description;
-        $this->status = 'pending';
+        $this->status = new PendingStatus();
     }
 
     public function getId(){
         return $this->id;
     }
 
-    public function setId(int $id){
+    public function setId(int|string $id){
         $this->id = $id;
     }
 

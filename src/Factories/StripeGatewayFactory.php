@@ -7,7 +7,7 @@ use Paydapter\Paydapter\Interfaces\PaymentGatewayInterface;
 use Paydapter\Paydapter\PaymentGateways\StripeGateway;
 
 class StripeGatewayFactory implements PaymentGatewayFactoryInterface{
-    public function createPaymentGateway(): PaymentGatewayInterface{
-        return new StripeGateway();
+    public function createPaymentGateway(array $credentials): PaymentGatewayInterface{
+        return new StripeGateway($credentials);
     }
 }

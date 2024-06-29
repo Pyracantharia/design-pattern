@@ -7,7 +7,7 @@ use Paydapter\Paydapter\Interfaces\PaymentGatewayInterface;
 use Paydapter\Paydapter\PaymentGateways\PaypalGateway;
 
 class paypalGatewayFactory implements PaymentGatewayFactoryInterface{
-    public function createPaymentGateway(): PaymentGatewayInterface{
-        return new PaypalGateway();
+    public function createPaymentGateway(array $credentials): PaymentGatewayInterface{
+        return new PaypalGateway($credentials);
     }
 }
