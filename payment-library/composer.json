@@ -1,9 +1,9 @@
 {
-    "name": "paydapter/paydapter",
-    "description": "A php library that unifies payment interfaces",
+    "name": "crush/payment-library",
+    "description": "Une librairie PHP pour les interfaces de paiement en ligne.",
     "autoload": {
         "psr-4": {
-            "Paydapter\\Paydapter\\": "src/"
+            "PaymentLibrary\\": "src/"
         }
     },
     "authors": [

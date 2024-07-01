@@ -1,6 +1,6 @@
 <?php
 
-namespace Paydapter\Paydapter\Interfaces;
+namespace PaymentLibrary\Interfaces;
 
 interface PaymentGatewayFactoryInterface{
     public function createPaymentGateway(array $credentials): PaymentGatewayInterface;

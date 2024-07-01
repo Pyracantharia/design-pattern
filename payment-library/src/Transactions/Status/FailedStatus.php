@@ -1,10 +1,10 @@
 <?php
 
-namespace Paydapter\Paydapter\Transactions\Status;
+namespace PaymentLibrary\Transactions\Status;
 
-use Paydapter\Paydapter\Interfaces\TransactionStatusInterface;
-use Paydapter\Paydapter\Transactions\Transaction;
-use Paydapter\Paydapter\Transactions\Status\PendingStatus;
+use PaymentLibrary\Interfaces\TransactionStatusInterface;
+use PaymentLibrary\Transactions\Transaction;
+use PaymentLibrary\Transactions\Status\PendingStatus;
 
 class FailedStatus implements TransactionStatusInterface{
 

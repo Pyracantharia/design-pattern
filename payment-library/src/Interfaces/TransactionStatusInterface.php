@@ -1,8 +1,8 @@
 <?php
 
-namespace Paydapter\Paydapter\Interfaces;
+namespace PaymentLibrary\Interfaces;
 
-use Paydapter\Paydapter\Transactions\Transaction;
+use PaymentLibrary\Transactions\Transaction;
 //use State pattern
 interface TransactionStatusInterface{
     public function next(Transaction $transaction): void;

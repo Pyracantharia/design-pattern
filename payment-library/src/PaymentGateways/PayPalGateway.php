@@ -1,18 +1,20 @@
 <?php
 
-namespace Paydapter\Paydapter\PaymentGateways;
+namespace PaymentLibrary\PaymentGateways;
 
-use Paydapter\Paydapter\Interfaces\PaymentGatewayInterface;
-use Paydapter\Paydapter\Interfaces\TransactionStatusInterface;
-use Paydapter\Paydapter\Transactions\Status\CancelledStatus;
-use Paydapter\Paydapter\Transactions\Status\SuccessStatus;
-use Paydapter\Paydapter\Transactions\Transaction;
+use PaymentLibrary\Interfaces\PaymentGatewayInterface;
+use PaymentLibrary\Interfaces\TransactionStatusInterface;
+use PaymentLibrary\Transactions\Status\CancelledStatus;
+use PaymentLibrary\Transactions\Status\SuccessStatus;
+use PaymentLibrary\Transactions\Transaction;
 
 class PaypalGateway implements PaymentGatewayInterface{
     private $credentials;
+    private $api_key;
 
-    public function __construct() {
-        
+    public function __construct(array $credentials) {
+        $this->credentials = $credentials;
+        $this->api_key = $credentials["API_KEY"];
     }
 
     public function createTransaction(float $amount, string $currency, string $description): Transaction {
