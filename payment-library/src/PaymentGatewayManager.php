@@ -2,7 +2,7 @@
 
 namespace PaymentLibrary;
 
-use PaymentLibrary\PaymentGateways\PaymentGatewayInterface;
+use PaymentLibrary\Interfaces\PaymentGatewayInterface;
 
 class PaymentGatewayManager
 {
