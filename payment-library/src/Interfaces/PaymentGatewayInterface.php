@@ -1,8 +1,8 @@
 <?php
 
-namespace Paydapter\Paydapter\Interfaces;
+namespace PaymentLibrary\Interfaces;
 
-use Paydapter\Paydapter\Transactions\Transaction;
+use PaymentLibrary\Transactions\Transaction;
 
 interface PaymentGatewayInterface{
     public function createTransaction(float $amount, string $currency, string $description): Transaction;

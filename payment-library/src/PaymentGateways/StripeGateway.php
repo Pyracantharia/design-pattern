@@ -1,13 +1,13 @@
 <?php
 
-namespace Paydapter\Paydapter\PaymentGateways;
+namespace PaymentLibrary\PaymentGateways;
 
-use Paydapter\Paydapter\Interfaces\PaymentGatewayInterface;
-use Paydapter\Paydapter\Interfaces\TransactionStatusInterface;
-use Paydapter\Paydapter\Transactions\Status\CancelledStatus;
-use Paydapter\Paydapter\Transactions\Status\FailedStatus;
-use Paydapter\Paydapter\Transactions\Status\SuccessStatus;
-use Paydapter\Paydapter\Transactions\Transaction;
+use PaymentLibrary\Interfaces\PaymentGatewayInterface;
+use PaymentLibrary\Interfaces\TransactionStatusInterface;
+use PaymentLibrary\Transactions\Status\CancelledStatus;
+use PaymentLibrary\Transactions\Status\FailedStatus;
+use PaymentLibrary\Transactions\Status\SuccessStatus;
+use PaymentLibrary\Transactions\Transaction;
 
 class StripeGateway implements PaymentGatewayInterface{
     private $credentials;

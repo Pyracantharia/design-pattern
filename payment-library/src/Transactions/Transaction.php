@@ -1,9 +1,9 @@
 <?php
 
-namespace Paydapter\Paydapter\Transactions;
+namespace PaymentLibrary\Transactions;
 
-use Paydapter\Paydapter\Interfaces\TransactionStatusInterface;
-use Paydapter\Paydapter\Transactions\Status\PendingStatus;
+use PaymentLibrary\Interfaces\TransactionStatusInterface;
+use PaymentLibrary\Transactions\Status\PendingStatus;
 
 class Transaction {
     private $id;
