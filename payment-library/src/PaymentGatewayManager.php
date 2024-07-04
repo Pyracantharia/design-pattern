@@ -2,27 +2,25 @@
 
 namespace PaymentLibrary;
 
+use PaymentLibrary\Interfaces\PaymentGatewayFactoryInterface;
 use PaymentLibrary\Interfaces\PaymentGatewayInterface;
+
 
 class PaymentGatewayManager
 {
-    protected $gateways = [];
+    private $factories = [];
 
-    public function addGateway(string $name, PaymentGatewayInterface $gateway): void
+    public function registerFactory(string $name, PaymentGatewayFactoryInterface $factory)
     {
-        $this->gateways[$name] = $gateway;
+        $this->factories[$name] = $factory;
     }
 
-    public function removeGateway(string $name): void
+    public function getGateway(string $name, array $config): PaymentGatewayInterface
     {
-        unset($this->gateways[$name]);
+        if (!isset($this->factories[$name])) {
+            throw new \Exception("Payment gateway factory for $name not found.");
+        }
+        return $this->factories[$name]->create($config);
     }
 
-    public function getGateway(string $name): ?PaymentGatewayInterface
-    {
-        return $this->gateways[$name] ?? null;
-    }
-
-    
 }
-?>

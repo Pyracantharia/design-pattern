@@ -1,11 +1,18 @@
 <?php
-
-use PaymentLibrary\Core\Utils;
-use PaymentLibrary\Factories\StripeGatewayFactory;
-
 require_once "./vendor/autoload.php";
-
-$stripeFactory = new StripeGatewayFactory();
-$stripe = $stripeFactory->createPaymentGateway(["API_KEY" => Utils::env("API_KEY")]); //Renseigner sa clé d'API dans le .env
-$stripeTransaction = $stripe->createTransaction(0.50, "EUR", "test");
-$stripe->executeTransaction($stripeTransaction);
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Librairie de Paiement</title>
+</head>
+<body>
+    <h1>Librairie de Paiement</h1>
+    <form action="select_payment.php" method="post">
+        <button type="submit">Acheter</button>
+    </form>
+</form>
+</body>
+</html>

@@ -2,6 +2,6 @@
 
 namespace PaymentLibrary\Interfaces;
 
-interface PaymentGatewayFactoryInterface{
-    public function createPaymentGateway(array $credentials): PaymentGatewayInterface;
+interface PaymentGatewayFactoryInterface {
+    public function create(array $config): PaymentGatewayInterface;
 }

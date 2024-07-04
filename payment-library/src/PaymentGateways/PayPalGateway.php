@@ -4,32 +4,72 @@ namespace PaymentLibrary\PaymentGateways;
 
 use PaymentLibrary\Interfaces\PaymentGatewayInterface;
 use PaymentLibrary\Interfaces\TransactionStatusInterface;
-use PaymentLibrary\Transactions\Status\CancelledStatus;
-use PaymentLibrary\Transactions\Status\SuccessStatus;
-use PaymentLibrary\Transactions\Transaction;
+use PaymentLibrary\Transactions\Status\PendingStatus;
+use PayPal\Rest\ApiContext;
+use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Api\Payment as PaypalPayment;
 
-class PaypalGateway implements PaymentGatewayInterface{
+
+class PaypalGateway implements PaymentGatewayInterface
+{
     private $credentials;
-    private $api_key;
 
-    public function __construct(array $credentials) {
+    public function __construct(array $credentials)
+    {
         $this->credentials = $credentials;
-        $this->api_key = $credentials["API_KEY"];
     }
 
-    public function createTransaction(float $amount, string $currency, string $description): Transaction {
-        return new Transaction($amount, $currency, $description);
+    public function createTransaction($amount, $currency, $description)
+    {
+        // Implement transaction creation logic here
+        return [
+            'amount' => $amount,
+            'currency' => $currency,
+            'description' => $description,
+            'status' => 'pending'
+        ];
     }
-    public function executeTransaction(Transaction $transaction): void {
-        // Code pour exécuter la transaction via l'API paypal
-        $transaction->setStatus(new SuccessStatus());
-        
+    public function executeTransaction($transaction): TransactionStatusInterface
+    {
+        // Implement transaction execution logic here
+        // Simulate a pending status for now
+        $transactionStatus = new PendingStatus();
+        $transactionStatus->setTransactionId('TX123456789'); // Set a transaction ID
+        $transactionStatus->setPaymentMethod('PayPal'); // Set the payment method
+        return $transactionStatus;
     }
-    public function cancelTransaction(Transaction $transaction): void {
-        // Code pour annuler la transaction via l'API paypal
-        $transaction->setStatus(new CancelledStatus());
+
+    public function cancelTransaction($transactionId)
+    {
+        $apiContext = new \PayPal\Rest\ApiContext(
+            new \PayPal\Auth\OAuthTokenCredential(
+                $this->config['client_id'],
+                $this->config['client_secret']
+            )
+        );
+
+        $payment = new \PayPal\Api\Payment();
+        $payment->setId($transactionId);
+
+        try {
+            $payment->cancel($apiContext);
+            return true;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return false;
+        }
     }
-    public function getTransactionStatus(Transaction $transaction): TransactionStatusInterface {
-        return $transaction->getStatus();
+    public function getTransactions()
+    {
+        // Implement transaction listing logic here
+        return [
+            (object) [
+                'id' => 'TX123456789',
+                'status' => new PendingStatus()
+            ]
+        ];
+    }
+    public function testEcho()
+    {
+        echo "Test echo from PaypalGateway";
     }
 }
