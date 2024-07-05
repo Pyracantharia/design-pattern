@@ -18,5 +18,25 @@
         "payment_status": "created",
         "approval_url": "https:\/\/www.sandbox.paypal.com\/cgi-bin\/webscr?cmd=_express-checkout&token=EC-3TU30056977538300",
         "created_at": "2024-07-04 23:00:01"
+    },
+    {
+        "payment_id": "PAYID-M2D6WZQ99F76242537063117",
+        "amount": 0.01,
+        "currency": "USD",
+        "description": "Achat d'un produit exemple",
+        "payer_id": "payer-1234567890",
+        "payment_status": "created",
+        "approval_url": "https:\/\/www.sandbox.paypal.com\/cgi-bin\/webscr?cmd=_express-checkout&token=EC-09G9264850705770D",
+        "created_at": "2024-07-05 12:47:34"
+    },
+    {
+        "payment_id": "PAYID-M2D6XDI4JU09082HW557944K",
+        "amount": 0.01,
+        "currency": "USD",
+        "description": "Achat d'un produit exemple",
+        "payer_id": "payer-1234567890",
+        "payment_status": "created",
+        "approval_url": "https:\/\/www.sandbox.paypal.com\/cgi-bin\/webscr?cmd=_express-checkout&token=EC-83E20680PY575440E",
+        "created_at": "2024-07-05 12:48:13"
     }
 ]
