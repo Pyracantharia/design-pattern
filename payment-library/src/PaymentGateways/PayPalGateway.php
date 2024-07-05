@@ -8,6 +8,9 @@ use PaymentLibrary\Transactions\Status\PendingStatus;
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Api\Payment as PaypalPayment;
+use PaymentLibrary\Core\Utils;
+use Exception;
+
 
 
 class PaypalGateway implements PaymentGatewayInterface
@@ -60,13 +63,6 @@ class PaypalGateway implements PaymentGatewayInterface
     }
     public function getTransactions()
     {
-        // Implement transaction listing logic here
-        return [
-            (object) [
-                'id' => 'TX123456789',
-                'status' => new PendingStatus()
-            ]
-        ];
     }
     public function testEcho()
     {

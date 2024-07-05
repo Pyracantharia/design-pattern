@@ -9,6 +9,9 @@ require_once "./vendor/autoload.php";
     <title>Librairie de Paiement</title>
 </head>
 <body>
+    <li>
+        <a href="listing.php">Listing</a>
+    </li>
     <h1>Librairie de Paiement</h1>
     <form action="select_payment.php" method="post">
         <button type="submit">Acheter</button>
