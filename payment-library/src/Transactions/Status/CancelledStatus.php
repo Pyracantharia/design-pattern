@@ -4,7 +4,7 @@ namespace PaymentLibrary\Transactions\Status;
 
 use PaymentLibrary\Interfaces\TransactionStatusInterface;
 use PaymentLibrary\Transactions\Transaction;
-use PaymentLibrary\Transactions\Status\SuccessStatus;
+
 
 class CancelledStatus implements TransactionStatusInterface{
 
@@ -14,5 +14,9 @@ class CancelledStatus implements TransactionStatusInterface{
 
     public function prev(Transaction $transaction): void {
         $transaction->setStatus(new PendingStatus());
+    }
+
+    public function getStatus(): string {
+        return 'cancelled';
     }
 }

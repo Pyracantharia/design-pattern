@@ -16,4 +16,8 @@ class FailedStatus implements TransactionStatusInterface{
         
         $transaction->setStatus(new PendingStatus());
     }
+
+    public function getStatus(): string {
+        return 'failed';
+    }
 }
