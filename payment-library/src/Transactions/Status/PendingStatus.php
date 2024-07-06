@@ -27,10 +27,10 @@ class PendingStatus implements TransactionStatusInterface{
     }
 
     private function isPaymentFailed(Transaction $transaction): bool {
-        return rand(0, 1) === 0; 
+        return false; //Vous pouvez remplacer cette partie par une logique réelle
     }
     private function isPaymentSuccessful(Transaction $transaction): bool {
-        return rand(0, 1) === 1; // Simule une réussite de paiement aléatoire
+        return true; // Simule une réussite de paiement aléatoire ,Vous pouvez remplacer cette partie par une logique réelle
     }
 
 
