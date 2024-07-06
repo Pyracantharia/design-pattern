@@ -50,7 +50,7 @@ class PaypalGateway implements PaymentGatewayInterface
                 $this->config['client_secret']
             )
         );
-
+ 
         $payment = new \PayPal\Api\Payment();
         $payment->setId($transactionId);
 
