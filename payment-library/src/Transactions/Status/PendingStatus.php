@@ -7,26 +7,6 @@ use PaymentLibrary\Transactions\Transaction;
 use PaymentLibrary\Transactions\Status\SuccessStatus;
 
 class PendingStatus implements TransactionStatusInterface{
-    private $transactionId;
-    private $paymentMethod;
-
-    public function setTransactionId(string $transactionId): self {
-        $this->transactionId = $transactionId;
-        return $this;
-    }
-
-    public function getTransactionId(): string {
-        return $this->transactionId;
-    }
-
-    public function setPaymentMethod(string $paymentMethod): self {
-        $this->paymentMethod = $paymentMethod;
-        return $this;
-    }
-
-    public function getPaymentMethod(): string {
-        return $this->paymentMethod;
-    }
 
     public function getStatus(): string {
         return 'pending';
@@ -34,10 +14,29 @@ class PendingStatus implements TransactionStatusInterface{
 
 
     public function next(Transaction $transaction): void {
-        $transaction->setStatus(new SuccessStatus());
+        if ($this->isPaymentSuccessful($transaction)) {
+            $transaction->setStatus(new SuccessStatus());
+        } elseif ($this->isPaymentFailed($transaction)) {
+            $transaction->setStatus(new FailedStatus());
+        } elseif ($this->isPaymentCancelled($transaction)) {
+            $transaction->setStatus(new CancelledStatus());
+        }
     }
 
     public function prev(Transaction $transaction): void {
-        // Logic for moving to the previous state if applicable
+    }
+
+    private function isPaymentFailed(Transaction $transaction): bool {
+        return rand(0, 1) === 0; 
+    }
+    private function isPaymentSuccessful(Transaction $transaction): bool {
+        return rand(0, 1) === 1; // Simule une réussite de paiement aléatoire
+    }
+
+
+    private function isPaymentCancelled(Transaction $transaction): bool {
+        // Logique simulée pour vérifier si le paiement est annulé
+        // Vous pouvez remplacer cette partie par une logique réelle
+        return false; // Modifiez selon la logique réelle
     }
 }
