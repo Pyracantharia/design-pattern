@@ -119,9 +119,7 @@ class PaymentProcessor
 
 $paymentGatewayManager = new PaymentGatewayManager();
 $paypalFactory = new PaypalGatewayFactory();
-$stripeFactory = new StripeGatewayFactory();
 $paymentGatewayManager->registerFactory('paypal', $paypalFactory);
-$paymentGatewayManager->registerFactory('stripe', $stripeFactory);
 
 $config = [
     'client_id' => Utils::env('PAYPAL_CLIENT_ID'),

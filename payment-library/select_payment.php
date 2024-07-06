@@ -7,11 +7,10 @@ use PaymentLibrary\Factories\StripeGatewayFactory;
 
 $paymentGatewayManager = new PaymentGatewayManager();
 $paypalFactory = new PaypalGatewayFactory();
-$stripeFactory = new StripeGatewayFactory();
-$paymentGatewayManager->registerFactory('paypal', $paypalFactory);
-$paymentGatewayManager->registerFactory('stripe', $stripeFactory);
 
-$gateways = ['paypal', 'stripe'];
+$paymentGatewayManager->registerFactory('paypal', $paypalFactory);
+
+$gateways = ['paypal'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
