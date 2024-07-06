@@ -15,4 +15,8 @@ class SuccessStatus implements TransactionStatusInterface{
     public function prev(Transaction $transaction): void {
         $transaction->setStatus(new PendingStatus());
     }
+
+    public function getStatus(): string {
+        return 'success';
+    }
 }
