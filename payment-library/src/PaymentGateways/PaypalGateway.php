@@ -10,8 +10,8 @@ use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Api\Payment as PaypalPayment;
 use PaymentLibrary\Core\Utils;
 use Exception;
-
-
+use PaymentLibrary\Transactions\Status\SuccessStatus;
+use PaymentLibrary\Transactions\Transaction;
 
 class PaypalGateway implements PaymentGatewayInterface
 {
@@ -22,50 +22,41 @@ class PaypalGateway implements PaymentGatewayInterface
         $this->credentials = $credentials;
     }
 
-    public function createTransaction($amount, $currency, $description)
+    public function createTransaction($amount, $currency, $description): Transaction
     {
-        // Implement transaction creation logic here
-        return [
-            'amount' => $amount,
-            'currency' => $currency,
-            'description' => $description,
-            'status' => 'pending'
-        ];
+        $transaction = new Transaction($amount, $currency, $description);
+        return $transaction;
     }
-    public function executeTransaction($transaction): TransactionStatusInterface
+
+    public function executeTransaction(Transaction $transaction): void
     {
         // Implement transaction execution logic here
         // Simulate a pending status for now
-        $transactionStatus = new PendingStatus();
-        $transactionStatus->setTransactionId('TX123456789'); // Set a transaction ID
-        $transactionStatus->setPaymentMethod('PayPal'); // Set the payment method
-        return $transactionStatus;
+       $transaction->setStatus(new SuccessStatus());
     }
 
-    public function cancelTransaction($transactionId)
+    public function cancelTransaction(Transaction $transaction): void
     {
-        $apiContext = new \PayPal\Rest\ApiContext(
-            new \PayPal\Auth\OAuthTokenCredential(
-                $this->config['client_id'],
-                $this->config['client_secret']
-            )
-        );
+        // $apiContext = new \PayPal\Rest\ApiContext(
+        //     new \PayPal\Auth\OAuthTokenCredential(
+        //         $this->credentials['client_id'],
+        //         $this->credentials['client_secret']
+        //     )
+        // );
  
-        $payment = new \PayPal\Api\Payment();
-        $payment->setId($transactionId);
+        // $payment = new \PayPal\Api\Payment();
+        // $payment->setId($transactionId);
 
-        try {
-            $payment->cancel($apiContext);
-            return true;
-        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return false;
-        }
+        // try {
+        //     $payment->cancel($apiContext);
+        //     return true;
+        // } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+        //     return false;
+        // }
     }
-    public function getTransactions()
+
+    public function getTransactionStatus(Transaction $transaction): TransactionStatusInterface
     {
-    }
-    public function testEcho()
-    {
-        echo "Test echo from PaypalGateway";
+        return $transaction->getStatus();
     }
 }
