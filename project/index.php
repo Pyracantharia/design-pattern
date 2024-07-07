@@ -1,7 +1,18 @@
 <?php
+require_once __DIR__."/vendor/autoload.php";
 require_once "./../payment-library/vendor/autoload.php";
+
+use PaymentLibrary\Core\Utils;
 use PaymentLibrary\Factories\PaymentGatewayFactory;
+use PaymentLibrary\Strategies\PaymentGatewayStrategy;
+use Test\Observers\BillingServiceObserver;
 
 $factory = new PaymentGatewayFactory();
-$stripeGateway = $factory->createPaymentGateway("stripe", ["API_KEY" => "test"]);
-var_dump($stripeGateway);
+$paymentGateway = $factory->createPaymentGateway("stripe",["API_KEY" => Utils::env("API_KEY")]); //Renseigner sa clé d'API dans le .env
+$paymentStrategy = new PaymentGatewayStrategy($paymentGateway);
+//essayer d'implémenter des services tiers avec observer
+$billingservice = new BillingServiceObserver();
+$transaction = $paymentStrategy->createTransaction(0.50, "EUR", "test");
+
+$transaction->attach($billingservice);
+$paymentStrategy->executeTransaction($transaction);

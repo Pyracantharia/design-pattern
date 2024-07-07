@@ -16,7 +16,8 @@ class CancelledStatus implements TransactionStatusInterface{
         $transaction->setStatus(new PendingStatus());
     }
 
-    public function getStatus(): string {
-        return 'cancelled';
+    public function getStatusName(): string
+    {
+        return "canceled";
     }
 }

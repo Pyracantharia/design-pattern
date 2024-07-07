@@ -2,21 +2,43 @@
 
 namespace PaymentLibrary\Transactions;
 
+use PaymentLibrary\Interfaces\ObserverInterface;
+use PaymentLibrary\Interfaces\SubjectInterface;
 use PaymentLibrary\Interfaces\TransactionStatusInterface;
 use PaymentLibrary\Transactions\Status\PendingStatus;
 
-class Transaction {
+class Transaction implements SubjectInterface{
     private $id;
     private $amount;
     private $currency;
     private $description;
     private $status;
+    private array $observers = [];
 
     public function __construct(float $amount, string $currency, string $description) {
         $this->amount = $amount;
         $this->currency = $currency;
         $this->description = $description;
         $this->status = new PendingStatus();
+    }
+
+    public function attach(ObserverInterface $observer): void{
+        $this->observers[] = $observer;
+    }
+
+    public function detach(ObserverInterface $observer): void{
+        $index = array_search($observer, $this->observers, true);
+        if ($index !== false) {
+            unset($this->observers[$index]);
+            $this->observers = array_values($this->observers);
+        }
+    }
+
+    public function notify(): void
+    {
+        foreach ($this->observers as $observer) {
+            $observer->update($this->status);
+        }
     }
 
     public function getId(){
@@ -57,5 +79,6 @@ class Transaction {
 
     public function setStatus(TransactionStatusInterface $status){
         $this->status = $status;
+        $this->notify();
     }
 }
