@@ -1,0 +1,15 @@
+{
+    "name": "test/payment-library",
+    "autoload": {
+        "psr-4": {
+            "Test\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jonathan Assi",
+            "email": "assijonathan2@gmail.com"
+        }
+    ],
+    "require": {}
+}

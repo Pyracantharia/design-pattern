@@ -6,6 +6,7 @@ use PaymentLibrary\Interfaces\PaymentGatewayInterface;
 use PaymentLibrary\Interfaces\TransactionStatusInterface;
 use PaymentLibrary\Transactions\Status\CancelledStatus;
 use PaymentLibrary\Transactions\Status\FailedStatus;
+use PaymentLibrary\Transactions\Status\PendingStatus;
 use PaymentLibrary\Transactions\Status\SuccessStatus;
 use PaymentLibrary\Transactions\Transaction;
 
@@ -32,8 +33,8 @@ class StripeGateway implements PaymentGatewayInterface{
 
             // Set the transaction ID with the Stripe PaymentIntent ID
             $transaction->setId($paymentIntent->id);
-            $transaction->setStatus(new SuccessStatus());
-            echo "La transaction {$transaction->getId()} a bien été créé";
+            $transaction->setStatus(new PendingStatus());
+            echo "La transaction {$transaction->getId()} a bien été créé.\n";
         } catch (\Exception $e) {
             // Handle error appropriately
             echo "Error: {$e->getMessage()}";
@@ -65,7 +66,7 @@ class StripeGateway implements PaymentGatewayInterface{
             $transaction->setStatus(new CancelledStatus());
         } catch(\Error $e){
             $transaction->setStatus(new FailedStatus());
-            echo "Echec de l'annulation de la transaction";
+            echo "Echec de l'annulation de la transaction.\n";
         }
         
     }
