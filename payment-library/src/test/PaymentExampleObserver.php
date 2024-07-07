@@ -5,10 +5,18 @@
 use PaymentLibrary\Core\Utils;
 use PaymentLibrary\Factories\PaymentGatewayFactory;
 use PaymentLibrary\Strategies\PaymentGatewayStrategy;
-use Test\Observers\BillingServiceObserver;
-
+use PaymentLibrary\Interfaces\ObserverInterface;
+use PaymentLibrary\Interfaces\TransactionStatusInterface;
 
 require_once "../../vendor/autoload.php";
+
+
+class BillingServiceObserver implements ObserverInterface{
+    public function update(TransactionStatusInterface $transactionStatus): void{
+        echo "BillingService -> the transaction is now: {$transactionStatus->getStatusName()}.\n";
+    }
+}
+
 
 
 
