@@ -1,19 +1,32 @@
 <?php
 
+// namespace Test\Observers;
+
+require_once "../../vendor/autoload.php";
+
 use PaymentLibrary\Core\Utils;
 use PaymentLibrary\Factories\PaymentGatewayFactory;
 use PaymentLibrary\Strategies\PaymentGatewayStrategy;
-use Stripe\Stripe;
-use Stripe\Checkout\Session;
-use PaymentLibrary\Transactions\Transaction;
+// use Stripe\Stripe;
+// use Stripe\Checkout\Session;
+// use PaymentLibrary\Transactions\Transaction;
 
-require_once "./vendor/autoload.php";
-// permet de redirect lien + creer transaction
-// $factory = new PaymentGatewayFactory();
-// $paymentGateway = $factory->createPaymentGateway("stripe", ["API_KEY" => Utils::env("API_KEY")]); //Renseigner sa clé d'API dans le .env
-// $paymentStrategy = new PaymentGatewayStrategy($paymentGateway);
-// $transaction = $paymentStrategy->createTransaction(0.60, "EUR", "test");
-// Stripe::setApiKey(Utils::env("API_KEY"));
+use PaymentLibrary\Interfaces\ObserverInterface;
+use PaymentLibrary\Interfaces\TransactionStatusInterface;
+
+// class BillingServiceObserver implements ObserverInterface{
+//     public function update(TransactionStatusInterface $transactionStatus): void{
+//         echo "BillingService -> the transaction is now: {$transactionStatus->getStatusName()}.\n";
+//     }
+// }
+
+// require_once "./vendor/autoload.php";
+// // permet de redirect lien + creer transaction
+// // $factory = new PaymentGatewayFactory();
+// // $paymentGateway = $factory->createPaymentGateway("stripe", ["API_KEY" => Utils::env("API_KEY")]); //Renseigner sa clé d'API dans le .env
+// // $paymentStrategy = new PaymentGatewayStrategy($paymentGateway);
+// // $transaction = $paymentStrategy->createTransaction(0.60, "EUR", "test");
+// // Stripe::setApiKey(Utils::env("API_KEY"));
 
 
 // $session = Session::create([
@@ -63,16 +76,7 @@ require_once "./vendor/autoload.php";
 // Pour créer un observer
 // <?php
 
-// namespace Test\Observers;
 
-// use PaymentLibrary\Interfaces\ObserverInterface;
-// use PaymentLibrary\Interfaces\TransactionStatusInterface;
-
-// class BillingServiceObserver implements ObserverInterface{
-//     public function update(TransactionStatusInterface $transactionStatus): void{
-//         echo "BillingService -> the transaction is now: {$transactionStatus->getStatusName()}.\n";
-//     }
-// }
 
 
 
@@ -82,12 +86,12 @@ require_once "./vendor/autoload.php";
 // use PaymentLibrary\Strategies\PaymentGatewayStrategy;
 // use Test\Observers\BillingServiceObserver;
 
-// $factory = new PaymentGatewayFactory();
-// $paymentGateway = $factory->createPaymentGateway("stripe",["API_KEY" => Utils::env("API_KEY")]); //Renseigner sa clé d'API dans le .env
-// $paymentStrategy = new PaymentGatewayStrategy($paymentGateway);
-// //essayer d'implémenter des services tiers avec observer
-// $billingservice = new BillingServiceObserver();
-// $transaction = $paymentStrategy->createTransaction(0.50, "EUR", "test");
+$factory = new PaymentGatewayFactory();
+$paymentGateway = $factory->createPaymentGateway("stripe",["API_KEY" => Utils::env("API_KEY")]); //Renseigner sa clé d'API dans le .env
+$paymentStrategy = new PaymentGatewayStrategy($paymentGateway);
+//essayer d'implémenter des services tiers avec observer
+$billingservice = new BillingServiceObserver();
+$transaction = $paymentStrategy->createTransaction(0.50, "EUR", "test");
 
-// $transaction->attach($billingservice);
-// $paymentStrategy->executeTransaction($transaction);
+$transaction->attach($billingservice);
+$paymentStrategy->executeTransaction($transaction);
