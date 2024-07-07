@@ -27,7 +27,10 @@ php example.php
 
 On peut faire docker-compose up pour lancer le serveur web et accéder à l'interface web pour tester les fichiers de test.
 
-## Voci un exemple de repot qui a fait une implementation de la librairie
+## Voci un exemple de repot qui a fait une implementation de la librairie avec un git clone
+
+
+
 
 https://github.com/deathfal/PaymentLibraryPackageExample.git
 
