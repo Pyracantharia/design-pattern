@@ -93,5 +93,16 @@ $paymentStrategy = new PaymentGatewayStrategy($paymentGateway);
 $billingservice = new BillingServiceObserver();
 $transaction = $paymentStrategy->createTransaction(0.50, "EUR", "test");
 
-$transaction->attach($billingservice);
-$paymentStrategy->executeTransaction($transaction);
+// $transaction->attach($billingservice);
+// $paymentStrategy->executeTransaction($transaction);
+
+$factory = new PaymentGatewayFactory();
+
+$paypalGateway = $factory->createPaymentGateway("paypal", [
+    "PAYPAL_CLIENT_ID" => Utils::env("PAYPAL_CLIENT_ID"),
+    "PAYPAL_SECRET_ID" => Utils::env("PAYPAL_SECRET_ID")
+    ]
+);
+
+$paymentStrategy = new PaymentGatewayStrategy($paypalGateway);
+$transaction = $paymentStrategy->createTransaction(0.60, "USD", "test paypal");
