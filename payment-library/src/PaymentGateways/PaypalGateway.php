@@ -32,27 +32,15 @@ class PaypalGateway implements PaymentGatewayInterface
     {
         // Implement transaction execution logic here
         // Simulate a pending status for now
-       $transaction->setStatus(new SuccessStatus());
+        $transaction->setStatus(new SuccessStatus());
     }
 
+    
     public function cancelTransaction(Transaction $transaction): void
     {
-        // $apiContext = new \PayPal\Rest\ApiContext(
-        //     new \PayPal\Auth\OAuthTokenCredential(
-        //         $this->credentials['client_id'],
-        //         $this->credentials['client_secret']
-        //     )
-        // );
- 
-        // $payment = new \PayPal\Api\Payment();
-        // $payment->setId($transactionId);
-
-        // try {
-        //     $payment->cancel($apiContext);
-        //     return true;
-        // } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-        //     return false;
-        // }
+        // Implement transaction cancellation logic here
+        // For now, just set the status to cancelled
+        $transaction->setStatus(new CancelledStatus());
     }
 
     public function getTransactionStatus(Transaction $transaction): TransactionStatusInterface
